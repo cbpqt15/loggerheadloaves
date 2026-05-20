@@ -226,32 +226,57 @@
       color: var(--brown-lt);
       margin-bottom: 2rem;
     }
-    .menu-grid { display: grid; gap: 1.5rem; }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
     .menu-card {
       background: var(--warm);
       border: 1px solid var(--border);
       border-radius: 1rem;
-      padding: 1.75rem 2rem;
+      overflow: hidden;
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1.5rem;
+      flex-direction: column;
       transition: box-shadow 0.2s, transform 0.2s;
     }
     .menu-card:hover {
-      box-shadow: 0 8px 32px rgba(58,46,30,0.08);
-      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(58,46,30,0.10);
+      transform: translateY(-3px);
+    }
+    .menu-card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+    .menu-card-img-placeholder {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: var(--warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .menu-card-content {
+      padding: 1.4rem 1.5rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex: 1;
     }
     .menu-card-body { flex: 1; }
     .menu-card h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: var(--brown);
       margin-bottom: 0.35rem;
     }
     .menu-card .ingredients {
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       color: var(--brown-lt);
       font-style: italic;
       line-height: 1.5;
@@ -270,7 +295,7 @@
     }
     .menu-price {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: var(--gold);
       white-space: nowrap;
@@ -435,6 +460,9 @@
     footer .footer-links a:hover { color: var(--green); }
     footer .copyright { opacity: 0.4; font-size: 0.75rem; }
 
+    /* ── Bagels grid — cap single card width ── */
+    .menu-grid.single-item { grid-template-columns: minmax(260px, 360px); }
+
     /* ── Responsive ── */
     @media (max-width: 720px) {
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -443,6 +471,7 @@
       .order-steps { grid-template-columns: 1fr; }
       .order-card { padding: 2rem 1.25rem; }
       .nav-links { display: none; }
+      .menu-grid.single-item { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -516,30 +545,39 @@
       <div class="menu-grid">
 
         <div class="menu-card">
-          <div class="menu-card-body">
-            <h3>Sourdough Sandwich Loaf</h3>
-            <p class="ingredients">Organic AP Flour, Starter (Organic AP Flour, Organic Rye, Filtered Water, Salt)</p>
-            <span class="tag">Classic</span>
+          <img class="menu-card-img" src="images/sandwich-loaf.jpg" alt="Sourdough Sandwich Loaf" />
+          <div class="menu-card-content">
+            <div class="menu-card-body">
+              <h3>Sourdough Sandwich Loaf</h3>
+              <p class="ingredients">Organic AP Flour, Starter (Organic AP Flour, Organic Rye, Filtered Water, Salt)</p>
+              <span class="tag">Classic</span>
+            </div>
+            <div class="menu-price">$8</div>
           </div>
-          <div class="menu-price">$8</div>
         </div>
 
         <div class="menu-card">
-          <div class="menu-card-body">
-            <h3>Sourdough Boule</h3>
-            <p class="ingredients">Organic AP Flour, Starter (Organic AP Flour, Organic Rye, Filtered Water, Salt)</p>
-            <span class="tag">Artisan</span>
+           <img class="menu-card-img" src="images/boule.jpg" alt="Cinnamon Raisin Sourdough Loaf" />
+          <div class="menu-card-content">
+            <div class="menu-card-body">
+              <h3>Sourdough Boule</h3>
+              <p class="ingredients">Organic AP Flour, Starter (Organic AP Flour, Organic Rye, Filtered Water, Salt)</p>
+              <span class="tag">Artisan</span>
+            </div>
+            <div class="menu-price">$8</div>
           </div>
-          <div class="menu-price">$8</div>
         </div>
 
         <div class="menu-card">
-          <div class="menu-card-body">
-            <h3>Cinnamon Raisin Sourdough Loaf</h3>
-            <p class="ingredients">Organic AP Flour, Raisins, Butter, Cinnamon, Organic Cane Sugar, Starter (Organic AP Flour, Organic Rye, Filtered Water, Salt)</p>
-            <span class="tag">Seasonal Favorite</span>
+          <img class="menu-card-img" src="images/cinnamonraisin.jpg" alt="Cinnamon Raisin Sourdough Loaf" />
+          <div class="menu-card-content">
+            <div class="menu-card-body">
+              <h3>Cinnamon Raisin Sourdough Loaf</h3>
+              <p class="ingredients">Organic AP Flour, Raisins, Butter, Cinnamon, Organic Cane Sugar, Starter (Organic AP Flour, Organic Rye, Filtered Water, Salt)</p>
+              <span class="tag">Classic Treat</span>
+            </div>
+            <div class="menu-price">$11</div>
           </div>
-          <div class="menu-price">$11</div>
         </div>
 
       </div>
@@ -547,15 +585,18 @@
       <div class="divider"><span>✦</span></div>
       <p class="menu-section-title">B A G E L S</p>
 
-      <div class="menu-grid">
+      <div class="menu-grid single-item">
 
         <div class="menu-card">
-          <div class="menu-card-body">
-            <h3>Sourdough Everything Bagels</h3>
-            <p class="ingredients">Organic AP Flour, Honey, Everything Bagel Seasoning (Sesame Seeds, Poppy Seeds, Dried Garlic, Dried Onion, Sea Salt), Starter (Organic AP Flour, Organic Rye, Filtered Water, Salt)</p>
-            <span class="tag">New</span>
+          <img class="menu-card-img" src="images/bagels.jpg" alt="Sourdough Everything Bagels" />
+          <div class="menu-card-content">
+            <div class="menu-card-body">
+              <h3>Sourdough Everything Bagels</h3>
+              <p class="ingredients">Organic AP Flour, Honey, Everything Bagel Seasoning (Sesame Seeds, Poppy Seeds, Dried Garlic, Dried Onion, Sea Salt), Starter (Organic AP Flour, Organic Rye, Filtered Water, Salt)</p>
+              <span class="tag">Classic</span>
+            </div>
+            <div class="menu-price">$12 / ½ doz</div>
           </div>
-          <div class="menu-price">$12 / ½ doz</div>
         </div>
 
       </div>
